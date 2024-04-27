@@ -8,3 +8,7 @@
 [课程介绍](docs/课程介绍.md)
 
 [基础部分-Part1](docs/基础部分-Part1.md)
+
+[基础部分-Part2](docs/基础部分-Part2.md)
+
+[基础部分-Part3](docs/基础部分-Part3.md)

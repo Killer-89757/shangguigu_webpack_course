@@ -17,8 +17,30 @@ module.exports = {
     // 加载器
     module: {
         rules: [
-            //loader的配置
-        ],
+            {
+                // 用来匹配 .css 结尾的文件
+                test: /\.css$/,
+                // use 数组里面 Loader 执行顺序是从右到左
+                use: ["style-loader", "css-loader"],
+            },
+            {
+                // 用来匹配 .less 结尾的文件
+                test: /\.less$/,
+                use: ["style-loader", "css-loader","less-loader"],
+            },
+            {
+                // 用来匹配 .scss/.sass 结尾的文件
+                test: /\.s[ac]ss$/,
+                // 将sass编译成css文件
+                use: ["style-loader", "css-loader","sass-loader"],
+            },
+            {
+                // 用来匹配 .styl 结尾的文件
+                test: /\.styl$/,
+                // 将styl编译成css文件
+                use: ["style-loader", "css-loader","stylus-loader"],
+            },
+        ]
     },
     // 插件
     plugins: [
