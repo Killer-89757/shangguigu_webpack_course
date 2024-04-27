@@ -65,7 +65,7 @@ npm i css-loader style-loader -D
 
 #### 3. 配置
 
-```json
+```js
 const path = require("path");
 
 module.exports = {
@@ -164,7 +164,7 @@ npm i less-loader -D
 
 #### 3. 配置
 
-```json
+```js
 const path = require("path");
 
 module.exports = {
@@ -266,7 +266,7 @@ npm i sass-loader sass -D
 
 #### 3. 配置
 
-```json
+```js
 const path = require("path");
 
 module.exports = {
@@ -381,7 +381,7 @@ npm i stylus-loader -D
 
 #### 3. 配置
 
-```json
+```js
 const path = require("path");
 
 module.exports = {
