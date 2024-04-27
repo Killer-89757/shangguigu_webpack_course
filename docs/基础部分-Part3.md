@@ -8,7 +8,7 @@
 
 ### 1. 配置
 
-```json
+```js
 const path = require("path");
 
 module.exports = {
@@ -115,7 +115,7 @@ npx webpack
 
 ![](https://cdn.jsdelivr.net/gh/Killer-89757/PicBed/images/2024%2F04%2Fimage-20240427092137904-188959.png)
 
-```json
+```js
 const path = require("path");
 
 module.exports = {
@@ -172,7 +172,7 @@ module.exports = {
 
 ### 1. 配置
 
-```json
+```js
 const path = require("path");
 
 module.exports = {
@@ -274,7 +274,7 @@ npx webpack
 
 ### 1. 配置
 
-```json
+```js
 const path = require("path");
 
 module.exports = {
@@ -401,7 +401,7 @@ console.log(sum(1, 2, 3, 4));
 
 ### 3. 配置
 
-```json
+```js
 const path = require("path");
 
 module.exports = {
@@ -483,7 +483,7 @@ npx webpack
 
 ### 1. 配置
 
-```json
+```js
 const path = require("path");
 
 module.exports = {
