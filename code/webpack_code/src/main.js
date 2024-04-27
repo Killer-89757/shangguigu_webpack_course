@@ -13,5 +13,5 @@ import "./css/iconfont.css";
 
 const result1 = count(2, 1);
 console.log(result1);
-const result2 = sum(1, 2, 3, 4);
+const result2 = sum(1, 2, 3, 4,5);
 console.log(result2);
