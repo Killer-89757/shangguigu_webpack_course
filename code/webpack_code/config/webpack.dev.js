@@ -18,7 +18,11 @@ module.exports = {
         // __dirname 当前文件的文件夹绝对路径
         path: undefined,
         // filename: 入口文件打包输出文件名
-        filename: "static/js/main.js", // 将 js 文件输出到 static/js
+        filename: "static/js/[name].js", // 将 js 文件输出到 static/js 目录中
+        // 给打包输出的其他文件命名
+        chunkFilename: "static/js/[name].chunk.js",
+        // 图片、字体等通过type:asset处理资源命名规则
+        assetModuleFilename:  "static/media/[hash:8][ext][query]"
     },
     // 加载器
     module: {
@@ -56,21 +60,21 @@ module.exports = {
                                 maxSize: 150 * 1024 // 小于150kb的图片会被base64处理
                             }
                         },
-                        generator: {
-                            // 将图片文件输出到 static/imgs 目录中
-                            // 将图片文件命名 [hash:8][ext][query]
-                            // [hash:8]: hash值取8位
-                            // [ext]: 使用之前的文件扩展名
-                            // [query]: 添加之前的query参数
-                            filename: "static/imgs/[hash:8][ext][query]",
-                        },
+                        // generator: {
+                        //     // 将图片文件输出到 static/imgs 目录中
+                        //     // 将图片文件命名 [hash:8][ext][query]
+                        //     // [hash:8]: hash值取8位
+                        //     // [ext]: 使用之前的文件扩展名
+                        //     // [query]: 添加之前的query参数
+                        //     filename: "static/imgs/[hash:8][ext][query]",
+                        // },
                     },
                     {
                         test: /\.(ttf|woff2?|map4|map3|avi)$/,
                         type: "asset/resource",
-                        generator: {
-                            filename: "static/media/[hash:8][ext][query]",
-                        },
+                        // generator: {
+                        //     filename: "static/media/[hash:8][ext][query]",
+                        // },
                     },
                     {
                         test: /\.js$/,

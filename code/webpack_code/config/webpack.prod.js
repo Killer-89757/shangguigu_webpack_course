@@ -10,6 +10,8 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 // js压缩
 const TerserPlugin = require("terser-webpack-plugin");
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
+const PreloadWebpackPlugin = require("@vue/preload-webpack-plugin");
+const WorkboxPlugin = require("workbox-webpack-plugin");
 
 // cpu核数
 const threads = os.cpus().length;
@@ -41,8 +43,16 @@ module.exports = {
     output: {
         // 所有文件的输出路径
         path: path.resolve(__dirname, "../dist"), // 生产模式需要输出
-        filename: "static/js/main.js", // 将 js 文件输出到 static/js 目录中
+        // filename: "static/js/[name].js", // 将 js 文件输出到 static/js 目录中
         clean: true,
+        // 给打包输出的其他文件命名
+        // chunkFilename: "static/js/[name].chunk.js",
+
+        filename: "static/js/[name].[contenthash:8].js", // 入口文件打包输出资源命名方式
+        chunkFilename: "static/js/[name].[contenthash:8].chunk.js", // 动态导入输出资源命名方式
+
+        // 图片、字体等通过type:asset处理资源命名规则
+        assetModuleFilename:  "static/media/[hash:8][ext][query]"
     },
     // 加载器
     module: {
@@ -78,21 +88,21 @@ module.exports = {
                             maxSize: 150 * 1024 // 小于150kb的图片会被base64处理
                         }
                     },
-                    generator: {
-                        // 将图片文件输出到 static/imgs 目录中
-                        // 将图片文件命名 [hash:8][ext][query]
-                        // [hash:8]: hash值取8位
-                        // [ext]: 使用之前的文件扩展名
-                        // [query]: 添加之前的query参数
-                        filename: "static/imgs/[hash:8][ext][query]",
-                    },
+                    // generator: {
+                    //     // 将图片文件输出到 static/imgs 目录中
+                    //     // 将图片文件命名 [hash:8][ext][query]
+                    //     // [hash:8]: hash值取8位
+                    //     // [ext]: 使用之前的文件扩展名
+                    //     // [query]: 添加之前的query参数
+                    //     filename: "static/media/[hash:8][ext][query]",
+                    // },
                 },
                 {
                     test: /\.(ttf|woff2?|map4|map3|avi)$/,
                     type: "asset/resource",
-                    generator: {
-                        filename: "static/media/[hash:8][ext][query]",
-                    },
+                    // generator: {
+                    //     filename: "static/media/[hash:8][ext][query]",
+                    // },
                 },
                 {
                     test: /\.js$/,
@@ -138,7 +148,19 @@ module.exports = {
         // 提取css成单独文件
         new MiniCssExtractPlugin({
             // 定义输出文件名和目录
-            filename: "static/css/main.css",
+            filename: "static/css/[name].css",
+            chunkFilename: "static/js/[name].chunk.css",
+        }),
+        new PreloadWebpackPlugin({
+            // rel: "preload", // preload兼容性更好
+            // as: "script",
+            rel: 'prefetch' // prefetch兼容性更差
+        }),
+        new WorkboxPlugin.GenerateSW({
+            // 这些选项帮助快速启用 ServiceWorkers
+            // 不允许遗留任何“旧的” ServiceWorkers
+            clientsClaim: true,
+            skipWaiting: true,
         }),
         ],
     optimization: {
@@ -177,8 +199,12 @@ module.exports = {
                     ],
                 },
             },
-            }),
-        ],
+        }),],
+        splitChunks: {chunks: "all",}, // 对所有模块都进行分割
+        // 提取runtime文件
+        runtimeChunk: {
+            name: (entrypoint) => `runtime~${entrypoint.name}`, // runtime文件命名规则
+        },
     },
 
     // 开发服务器
