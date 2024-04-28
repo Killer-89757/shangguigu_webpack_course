@@ -34,5 +34,3 @@
 [原理部分-Part1](docs/原理部分-Part1.md)
 
 [原理部分-Part2](docs/原理部分-Part2.md)
-
-[原理部分-Part3](docs/原理部分-Part3.md)
